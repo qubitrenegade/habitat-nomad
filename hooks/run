@@ -2,4 +2,7 @@
 
 exec 2>&1
 
-exec nomad agent -config-file={{pkg.svc_config_path}}/server.hcl
+echo "sys.hostname {{sys.hostname}}" {{sys.hostname}}
+
+hab svc start qubitrenegade/consul-client --bind consul-server:consul.default --group $(hostname)
+exec nomad agent -config={{pkg.svc_config_path}}/server.hcl

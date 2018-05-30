@@ -1,6 +1,13 @@
 
 data_dir = "{{cfg.server.data_dir}}"
 
+advertise {
+  # Defaults to the first private IP address.
+  http = "{{sys.ip}}"
+  rpc  = "{{sys.ip}}"
+  serf = "{{sys.ip}}" # non-default ports may be specified
+}
+
 server {
   enabled           = true
   bootstrap_expect  = {{cfg.server.bootstrap_expect}}
