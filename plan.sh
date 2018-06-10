@@ -9,8 +9,8 @@ pkg_filename="${pkg_name}-${pkg_version}_linux_amd64.zip"
 pkg_description="A tool for managing a cluster of machines and running applications on them; https://github.com/qubitrenegade/habitat-nomad"
 pkg_upstream_url="https://www.nomadproject.io"
 pkg_shasum="c7faaee8fad0f6a74df01b9283253ee565f85791adca1d6a38462e0387dee175"
-pkg_deps=(core/linux core/glibc)
-pkg_build_deps=(core/unzip core/strace)
+pkg_deps=(core/glibc core/bash)
+pkg_build_deps=(core/unzip core/patchelf)
 pkg_bin_dirs=(bin)
 
 pkg_svc_user="root"
@@ -35,7 +35,6 @@ pkg_binds_optional=(
 do_unpack() {
   cd "${HAB_CACHE_SRC_PATH}" || exit
   unzip ${pkg_filename} -d "${pkg_name}-${pkg_version}"
-  attach
 }
 
 
@@ -45,6 +44,6 @@ do_build() {
 }
 
 do_install() {
-  attach
   install -D nomad "${pkg_prefix}/bin/nomad"
+  patchelf --interpreter "$(pkg_path_for glibc)/lib64/ld-linux-x86-64.so.2" "${pkg_prefix}/bin/nomad"
 }

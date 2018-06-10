@@ -1,5 +1,5 @@
-#!/bin/bash -xe
+#!{{pkgPathFor "core/bash"}}/bin/bash -xe
 
 exec 2>&1
 
-exec nomad agent -config-file={{pkg.svc_config_path}}/server.hcl
+exec nomad agent -config={{pkg.svc_config_path}}/server.hcl

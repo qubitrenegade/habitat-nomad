@@ -3,7 +3,7 @@
 
 [server]
 bootstrap_expect = 3
-data-dir = "/hab/svc/nomad/data"
+data_dir = "/hab/svc/nomad/data"
 
 
 # This is the default config for consul
